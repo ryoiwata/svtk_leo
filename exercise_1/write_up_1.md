@@ -22,3 +22,5 @@ tabix -p vcf manta.SSC11438.vcf.gz
 vcf-sort -c manta.SSC11438_unsorted.vcf | bgzip -c > manta.SSC11438.vcf.gz;
 tabix -p vcf manta.SSC11438.vcf.gz
 
+##Step 5: Copy files from your docker image to your local
+- docker cp container_id:/file_name file_name
