@@ -15,6 +15,7 @@ tabix -p vcf manta.SSC11438.fixed.vcf.gz
     - https://en.wikipedia.org/wiki/Contig 
 
 ## Exploring the Functions of SVTK/vcf-sort/tabix
+Command Line
 - svtk (to see doc string of entire file)
 - svtk standardize -h (to see doc string of standarize function)
     - [ Preprocessing ] 
@@ -22,6 +23,9 @@ tabix -p vcf manta.SSC11438.fixed.vcf.gz
 
 - vcf-sort -h
 - tabix -h 
+
+## Source Algorithm (Manta)
+ - https://github.com/Illumina/manta/blob/master/docs/userGuide/README.md
 
 ## Exploring what's unique about BND (searching for BND in files)
 - https://github.com/hall-lab/svtools/issues/104 
@@ -53,12 +57,30 @@ tabix -p vcf manta.SSC11438.fixed.vcf.gz
 - https://samtools.github.io/hts-specs/VCFv4.2.pdf
     - 5.4 Specifying complex rearrangements with breakends
 
-## Looking through the files 
-- ls opt/svtk
+## Seeing which files have svtk standardize in the text
+Command Line
+- grep -rnw . -e 'svtk standardize'
 
-## Files of interest
-- opt/svtk/svtk/standardize/std_manta.py
-- opt/svtk/svtk/standardize/standardize.py
+Files of interest
+- ./svtk/cli/standardize_vcf.py
+
+## Seeing which files have BND in the text
+Command Line 
+- grep -rnw . -e 'BND'
+
+Files of interest
+- /svtk/standardize/standardize.py
+- /svtk/standardize/std_delly.py
+- /svtk/standardize/std_manta.py
+- /svtk/standardize/std_lumpy.py
+- /svtk/standardize/std_smoove.py
+
+
+## Seeing which files have VCFStandardizer in the text
+- /svtk/cli/standardize_vcf.py >> File that's used when standaridzing 
+
+
 
 ## Try with a simple file
 - with only one BND input
+- svtk standardize --prefix manta_SSC11438 --contigs contig.fai --min-size 50 test.manta.vcf.gz test.SSC11438_unsorted.vcf manta
