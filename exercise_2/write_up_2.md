@@ -9,8 +9,56 @@ vcf-sort -c manta.SSC11438_unsorted.vcf | bgzip -c > manta.SSC11438.fixed.vcf.gz
 tabix -p vcf manta.SSC11438.fixed.vcf.gz
 
 ## Exploring the input file 
-- Look up the file type of vcf (variant call files)
+- Look up the file type of vcf (variant call files): 
+    - https://samtools.github.io/hts-specs/VCFv4.2.pdf
+- Look up what contigs are:
+    - https://en.wikipedia.org/wiki/Contig 
 
-## Exploring the Functions of SVTK
+## Exploring the Functions of SVTK/vcf-sort/tabix
 - svtk (to see doc string of entire file)
 - svtk standardize -h (to see doc string of standarize function)
+    - [ Preprocessing ] 
+    - standardize    Convert SV calls to a standardized format.
+
+- vcf-sort -h
+- tabix -h 
+
+## Exploring what's unique about BND (searching for BND in files)
+- https://github.com/hall-lab/svtools/issues/104 
+- input file:
+    - ##INFO=<ID=BND_DEPTH,Number=1,Type=Integer,Description="Read depth at local translocation breakend">
+    - ##INFO=<ID=MATE_BND_DEPTH,Number=1,Type=Integer,Description="Read depth at remote translocation mate breakend">
+    - ##ALT=<ID=BND,Description="Translocation Breakend">
+
+- example of BND input
+    - #CHROM	POS	ID	REF	ALT	QUAL	FILTER	INFO	FORMAT	SSC11438
+    - chr1	806391	MantaBND:32:0:1:0:0:0:1	C	C]CHR2:242118516]	825	PASS	BND_DEPTH=212;CIPOS=0,12;HOMLEN=12;HOMSEQ=CATGCACTGCCC;MATEID=MantaBND:32:0:1:0:0:0:0;MATE_BND_DEPTH=189;SVTYPE=BND	GT:FT:GQ:PL:PR:SR	0/0:PASS:212:0,162,999:67,1:56,9
+
+- example of non-BND input
+
+    - chr1	933988	MantaDEL:0:57:57:0:0:0	CGGCTGCGTTACAGGTGGGCAGGGGAGGCGGCTGCGTTACAGGTGGGCAGGGGAGGCGGCTGCGTTACAGGTGGGCAGGGGAGGCGGCTGCGTTACAGGTGGGCAGGGGAGGCGGCTCCGTTACAGGTGGGCAGGGGAGGCGGCTGCGTTACAGGTGGGCAGGGGAGGCGGCTGCGTTACAGGTGGGCAGGGGAGGCGGCTGCGTTACAGGTGGGCAGGGGAGGCG	CT	999	PASS	CIGAR=1M1I225D;END=934213;SVLEN=-225;SVTYPE=DEL	GT:FT:GQ:PL:PR:SR	1/1:PASS:103:999,106,0:0,3:0,37
+
+    - chr1	998763	MantaINS:0:63:63:0:1:0	GC	GGGGAGGGCGCGGAGCGGAGGGGAGGGCGCGGAGCGGAGGGGAGGGCGCGGAGCGGAGG	999	PASS	CIGAR=1M58I1D;END=998764;SVLEN=58;SVTYPE=INS	GT:FT:GQ:PL:PR:SR	1/1:PASS:41:677,44,0:0,0:0,26
+
+    - chr1	16545311	MantaINV:2435:0:1:0:0:0	C	<INV>	999	MaxDepth	END=16727936;INV3;SVINSLEN=3;SVINSSEQ=CCT;SVLEN=182625;SVTYPE=INV	GT:FT:GQ:PL:PR:SR	0/1:PASS:999:999,0,999:156,0:137,41
+
+    - chr1	1068747	MantaDUP:TANDEM:0:75:75:2:0:0	C	<DUP:TANDEM>	999	PASS	CIEND=0,9;CIPOS=0,9;END=1068825;HOMLEN=9;HOMSEQ=CACGCGGGC;SVLEN=78;SVTYPE=DUP	GT:FT:GQ:PL:PR:SR	0/1:PASS:332:718,0,329:9,1:27,28
+
+- out file:
+    - ALT=<ID=BND,Description="Translocation">
+
+    - Filter <BND> is missing 
+
+## Looking through reference materials
+- https://samtools.github.io/hts-specs/VCFv4.2.pdf
+    - 5.4 Specifying complex rearrangements with breakends
+
+## Looking through the files 
+- ls opt/svtk
+
+## Files of interest
+- opt/svtk/svtk/standardize/std_manta.py
+- opt/svtk/svtk/standardize/standardize.py
+
+## Try with a simple file
+- with only one BND input
