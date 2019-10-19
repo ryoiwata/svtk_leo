@@ -1,0 +1,10 @@
+##fileformat=VCFv4.1
+##fileDate=20180324
+##source=GenerateSVCandidates 1.3.1
+##reference=file:///manta/localDir/GRCh38_full_analysis_set_plus_decoy_hla.fa
+##cmdline=/manta/manta-1.3.1.centos6_x86_64/bin/configManta.py --referenceFasta /manta/localDir/GRCh38_full_analysis_set_plus_decoy_hla.fa --bam /manta/localDir/SSC11438.final.cram --bam /manta/localDir/SSC11450.final.cram --bam /manta/localDir/SSC11449.final.cram --bam /manta/localDir/SSC11458.final.cram --runDir /manta/localDir/14354/
+##source_20180922.1=vcf-subset(v0.1.14-12-gcdb80b8) -f -c SSC11438 /cromwell_root/sfariaws/test/manta/diploid-files/diploidSV-14354.vcf.gz
+#CHROM	POS	ID	REF	ALT	QUAL	FILTER	INFO	FORMAT	SSC11438
+chr1	806391	MantaBND:32:0:1:0:0:0:1	C	C]CHR2:242118516]	825	PASS	BND_DEPTH=212;CIPOS=0,12;HOMLEN=12;HOMSEQ=CATGCACTGCCC;MATEID=MantaBND:32:0:1:0:0:0:0;MATE_BND_DEPTH=189;SVTYPE=BND	GT:FT:GQ:PL:PR:SR	0/0:PASS:212:0,162,999:67,1:56,9
+chr1	820928	MantaDEL:46:0:0:1:0:0	CTTGTCCAGCAGGTCCACCCTGTCTACACTACCTGCCTGCAAAGCAGATCCACCCTGTCTACACTACCTGG	C	999	PASS	CIGAR=1M70D;END=820998;SVLEN=-70;SVTYPE=DEL	GT:FT:GQ:PL:PR:SR	0/1:PASS:375:425,0,454:13,0:46,15
+
